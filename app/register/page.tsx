@@ -20,7 +20,12 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await register(formData.name, formData.email, formData.password);
+    await register(
+      formData.name,
+      formData.userName,
+      formData.email,
+      formData.password
+    );
   };
 
   return (
