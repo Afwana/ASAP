@@ -4,12 +4,17 @@ import { Button, DatePicker, Input, Modal, Radio } from "antd";
 import { MdVerified, MdWarning } from "react-icons/md";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../hooks/useAuth";
+import { useProfile } from "../hooks/useProfile";
 
 export default function BasicInformation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useAuth();
-  console.log(user);
+  const userMutation = useUser();
+
+  const userId = userMutation?.data?._id;
+
+  const { data: user, isLoading, isError } = useProfile(userId);
+  console.log(isLoading, isError);
 
   return (
     <>
@@ -27,7 +32,7 @@ export default function BasicInformation() {
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
             <div className="flex flex-col gap-1.5">
               <p className="text-[13px] text-[#2A2A2A]">Full Name</p>
-              <p className="text-[15px] text-[#7F7F7F]">Abhishek Sharma</p>
+              <p className="text-[15px] text-[#7F7F7F]">{user?.name}hjjh</p>
             </div>
             <div className="flex w-full justify-start gap-20 items-center">
               <div className="flex flex-col gap-1.5">

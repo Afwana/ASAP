@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+import { useRegister } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const router = useRouter();
-  const { register, loading, error } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const registerMutation = useRegister();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,14 +19,14 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await register(formData.name, formData.email, formData.password);
+    await registerMutation.mutateAsync(formData);
+    router.push("/login");
   };
 
   return (
     <div className="flex items-center justify-center h-screen w-full bg-white">
       <div className="w-1/3 p-5">
         <h2 className="text-2xl font-semibold mb-4 text-black">Register</h2>
-        {error && <p className="text-red-500 text-xs">{error}</p>}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <label htmlFor="name" className="label">
@@ -66,9 +66,9 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={registerMutation.isPending}
             className="bg-[#F26F22] text-white p-2 rounded disabled:bg-[#F26F22]">
-            {loading ? "Registering..." : "Register"}
+            {registerMutation.isPending ? "Registering..." : "Register"}
           </button>
         </form>
         <p className="text-center text-sm text-blue-500 mt-2">

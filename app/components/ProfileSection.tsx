@@ -11,13 +11,18 @@ import {
 } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { TbContract } from "react-icons/tb";
-import { useAuth } from "../hooks/useAuth";
-import { useProfile } from "../hooks/useProfile";
+import { useLogout, useUser } from "../hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function ProfileSection() {
-  const { logout } = useAuth();
-  const { profile } = useProfile();
-  console.log(profile);
+  const router = useRouter();
+  const logoutMutation = useLogout();
+  const userMutation = useUser();
+
+  const handleLogout = async () => {
+    await logoutMutation.mutateAsync();
+    router.push("/login");
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -31,10 +36,10 @@ export default function ProfileSection() {
               <Progress percent={60} strokeColor={"#FFC422"} />
               <div className="flex flex-col mt-2 items-center justify-center">
                 <p className="text-lg font-bold text-[#2A2A2A]">
-                  {profile?.name}
+                  {userMutation?.data?.name}
                 </p>
                 <p className="text-sm font-medium text-[#7F7F7F]">
-                  @{profile?.name?.toLowerCase()}2025
+                  @{userMutation?.data?.name?.toLowerCase()}2025
                 </p>
               </div>
             </div>
@@ -43,14 +48,16 @@ export default function ProfileSection() {
             <div className="flex gap-2 items-center">
               <MdOutlinePhone size={20} color="black" />
               <p className="text-[#7F7F7F] text-base font-medium">
-                {`+91 ${profile?.phone}`}
+                {userMutation?.data?.phone
+                  ? `+91 ${userMutation?.data?.phone}`
+                  : "-"}
               </p>
               <MdVerified size={18} color="#5CB01A" />
             </div>
             <div className="flex gap-2 items-center">
               <MdOutlineMail size={20} color="black" />
               <p className="text-[#7F7F7F] text-base font-medium">
-                abhishekshankar123@gmail.com
+                {userMutation?.data?.email}
               </p>
               <MdWarning size={18} color="#FFC422" />
             </div>
@@ -98,7 +105,7 @@ export default function ProfileSection() {
             </p>
           </button>
           <button
-            onClick={logout}
+            onClick={handleLogout}
             type="button"
             className="text-[#F26F22] border border-[#F26F22] cursor-pointer h-[39px] rounded-tl-md rounded-tr-2xl rounded-b-md w-[89px] text-base font-medium">
             Logout

@@ -6,7 +6,7 @@ import logo from "../../../public/images/asap-logo.png";
 import { Drawer } from "antd";
 import HamburgerSidebar from "./HamburgerSidebar";
 import { IoMenu } from "react-icons/io5";
-import { useAuth } from "@/app/hooks/useAuth";
+import { useUser } from "@/app/hooks/useAuth";
 
 const NAVIGATIONS = [
   { label: "Jobs", link: "/jobs" },
@@ -18,7 +18,8 @@ const NAVIGATIONS = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const { user } = useAuth();
+  const userMutation = useUser();
+  console.log(userMutation.data);
 
   const showDrawer = () => {
     setOpen(true);
@@ -48,14 +49,16 @@ export default function Header() {
             </nav>
           </div>
         </div>
-        {user ? (
+        {userMutation ? (
           <div className="hidden lg:flex gap-2.5 items-center">
             <div className="h-11 w-11 rounded-full bg-[#F9444A] flex items-center justify-center text-xl font-bold">
-              {user?.name[0].toUpperCase()}
+              {userMutation?.data?.name[0].toUpperCase()}
             </div>
             <div className="flex flex-col">
               <p className="text-[#7F7F7F] text-[13px]">Hi,</p>
-              <p className="text-[#2A2A2A] text-base">{user?.name}</p>
+              <p className="text-[#2A2A2A] text-base">
+                {userMutation?.data?.name}
+              </p>
             </div>
           </div>
         ) : (
