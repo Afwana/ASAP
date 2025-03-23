@@ -25,7 +25,7 @@ export default function ProfileSection() {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 w-full">
       <div className="flex flex-col gap-5 border border-[#EEEEEE] p-5 rounded-[10px]">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col justify-center items-center gap-3 p-2">
