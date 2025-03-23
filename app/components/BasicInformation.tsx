@@ -41,7 +41,7 @@ export default function BasicInformation() {
               </div>
               <div className="flex flex-col gap-1.5 justify-start items-start">
                 <p className="text-[13px] text-[#2A2A2A]">Gender</p>
-                <p className="text-[15px] text-[#3d3333]">Male</p>
+                <p className="text-[15px] text-[#7F7F7F]">Male</p>
               </div>
             </div>
           </div>
