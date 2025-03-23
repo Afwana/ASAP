@@ -1,6 +1,5 @@
 import { useAuth } from "@/app/hooks/useAuth";
 import Link from "next/link";
-import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 const NAVIGATIONS = [
   { label: "Jobs", link: "/jobs" },
@@ -11,11 +10,7 @@ const NAVIGATIONS = [
 ];
 
 export default function HamburgerSidebar({ onClose }: { onClose: () => void }) {
-  const { user, getUser } = useAuth();
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  const { user } = useAuth();
 
   return (
     <div className="flex flex-col gap-5">

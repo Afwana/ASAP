@@ -29,12 +29,7 @@ export const useAuth = () => {
     }
   }, []);
 
-  const register = async (
-    name: string,
-    userName: string,
-    email: string,
-    password: string
-  ) => {
+  const register = async (name: string, email: string, password: string) => {
     try {
       setLoading(true);
       setError(null);

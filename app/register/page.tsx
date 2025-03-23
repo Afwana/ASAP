@@ -9,7 +9,6 @@ const RegisterPage = () => {
   const { register, loading, error } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
-    userName: "",
     email: "",
     password: "",
   });
@@ -20,12 +19,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await register(
-      formData.name,
-      formData.userName,
-      formData.email,
-      formData.password
-    );
+    await register(formData.name, formData.email, formData.password);
   };
 
   return (
@@ -43,18 +37,6 @@ const RegisterPage = () => {
               name="name"
               onChange={handleChange}
               placeholder="Full Name"
-              className="input-box"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="userName" className="label">
-              User Name
-            </label>
-            <input
-              type="text"
-              name="userName"
-              onChange={handleChange}
-              placeholder="user name"
               className="input-box"
             />
           </div>

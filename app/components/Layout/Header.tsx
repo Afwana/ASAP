@@ -1,6 +1,6 @@
 "use-client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/images/asap-logo.png";
 import { Drawer } from "antd";
@@ -18,7 +18,7 @@ const NAVIGATIONS = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const { user, getUser } = useAuth();
+  const { user } = useAuth();
 
   const showDrawer = () => {
     setOpen(true);
@@ -27,10 +27,6 @@ export default function Header() {
   const onClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   return (
     <header className="flex sticky top-0 z-50 px-5 py-2 bg-white">

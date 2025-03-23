@@ -4,9 +4,12 @@ import { Button, DatePicker, Input, Modal, Radio } from "antd";
 import { MdVerified, MdWarning } from "react-icons/md";
 import { useState } from "react";
 import dayjs from "dayjs";
+import { useAuth } from "../hooks/useAuth";
 
 export default function BasicInformation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useAuth();
+  console.log(user);
 
   return (
     <>

@@ -12,9 +12,13 @@ import {
 import { BiSolidEditAlt } from "react-icons/bi";
 import { TbContract } from "react-icons/tb";
 import { useAuth } from "../hooks/useAuth";
+import { useProfile } from "../hooks/useProfile";
 
 export default function ProfileSection() {
   const { logout } = useAuth();
+  const { profile } = useProfile();
+  console.log(profile);
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-5 border border-[#EEEEEE] p-5 rounded-[10px]">
@@ -27,10 +31,10 @@ export default function ProfileSection() {
               <Progress percent={60} strokeColor={"#FFC422"} />
               <div className="flex flex-col mt-2 items-center justify-center">
                 <p className="text-lg font-bold text-[#2A2A2A]">
-                  Abhishek Shankar
+                  {profile?.name}
                 </p>
                 <p className="text-sm font-medium text-[#7F7F7F]">
-                  @abhishek2024
+                  @{profile?.name?.toLowerCase()}2025
                 </p>
               </div>
             </div>
@@ -39,7 +43,7 @@ export default function ProfileSection() {
             <div className="flex gap-2 items-center">
               <MdOutlinePhone size={20} color="black" />
               <p className="text-[#7F7F7F] text-base font-medium">
-                +91 9876543210
+                {`+91 ${profile?.phone}`}
               </p>
               <MdVerified size={18} color="#5CB01A" />
             </div>

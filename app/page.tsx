@@ -13,10 +13,82 @@ import Portfolio from "./components/Portfolio";
 import Experiences from "./components/Experiences";
 import Preferences from "./components/Preferences";
 import Documents from "./components/Documents";
-import SideMenus from "./components/SideMenus";
 import Footer from "./components/Layout/Footer";
+import { Radio, RadioChangeEvent } from "antd";
+import { CheckboxGroupProps } from "antd/es/checkbox";
+import { useEffect, useRef, useState } from "react";
+
+const plainOptions: CheckboxGroupProps<string>["options"] = [
+  "Basic Information",
+  "Education",
+  "Career Objective",
+  "Key Skills",
+  "Resume/Portfolio",
+  "Preferences",
+  "Work Experiences",
+  "Additional Documents",
+];
 
 export default function Home() {
+  const [selectedOption, setSelectedOption] = useState("Basic Information");
+
+  const basicInfoRef = useRef<HTMLDivElement>(null);
+  const educationRef = useRef<HTMLDivElement>(null);
+  const careerRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const resumePortfolioRef = useRef<HTMLDivElement>(null);
+  const preferencesRef = useRef<HTMLDivElement>(null);
+  const experiencesRef = useRef<HTMLDivElement>(null);
+  const documentsRef = useRef<HTMLDivElement>(null);
+
+  const handleRadioChange = ({ target: { value } }: RadioChangeEvent) => {
+    console.log("radio option selected:", value);
+    setSelectedOption(value);
+  };
+
+  useEffect(() => {
+    const scrollToComponent = () => {
+      let ref;
+      switch (selectedOption) {
+        case "Basic Information":
+          ref = basicInfoRef;
+          break;
+        case "Education":
+          ref = educationRef;
+          break;
+        case "Career Objective":
+          ref = careerRef;
+          break;
+        case "Key Skills":
+          ref = skillsRef;
+          break;
+        case "Resume/Portfolio":
+          ref = resumePortfolioRef;
+          break;
+        case "Preferences":
+          ref = preferencesRef;
+          break;
+        case "Work Experiences":
+          ref = experiencesRef;
+          break;
+        case "Additional Documents":
+          ref = documentsRef;
+          break;
+        default:
+          return;
+      }
+
+      if (ref?.current) {
+        ref.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    };
+
+    scrollToComponent();
+  }, [selectedOption]);
+
   return (
     <main>
       <Head>
@@ -41,18 +113,46 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row w-full items-start gap-10 px-10 mt-5">
           <ProfileSection />
           <div className="">
-            <BasicInformation />
+            <div ref={basicInfoRef}>
+              <BasicInformation />
+            </div>
             <PaymentPending />
-            <Education />
-            <Careers />
-            <Skills />
-            <Resume />
-            <Portfolio />
-            <Experiences />
-            <Preferences />
-            <Documents />
+            <div ref={educationRef}>
+              <Education />
+            </div>
+            <div ref={careerRef}>
+              <Careers />
+            </div>
+            <div ref={skillsRef}>
+              <Skills />
+            </div>
+            <div ref={resumePortfolioRef}>
+              <Resume />
+              <Portfolio />
+            </div>
+            <div ref={experiencesRef}>
+              <Experiences />
+            </div>
+            <div ref={preferencesRef}>
+              <Preferences />
+            </div>
+            <div ref={documentsRef}>
+              <Documents />
+            </div>
           </div>
-          <SideMenus />
+          <div className="w-1/2">
+            <Radio.Group
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                //   color: "#9420CA",
+              }}
+              options={plainOptions}
+              onChange={handleRadioChange}
+              value={selectedOption}
+            />
+          </div>
         </div>
         <Footer />
       </div>
