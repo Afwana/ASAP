@@ -24,3 +24,46 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.label {
+  font-size: 13px;
+  font-family: "Lato";
+  color: #2a2a2a;
+}
+
+.input-box {
+  height: 50px;
+  border: 1px;
+  border-radius: 10px;
+  border-color: #eeeeee;
+  padding: 20px;
+  color: #7f7f7f;
+}
+
+.custom-radio-group {
+  display: flex;
+  gap: 8px !important; /* Adjust the gap size as needed */
+}
+
+.custom-radio-group .ant-radio-button-wrapper {
+  border: 1px solid #ddd;
+  background-color: #f8f8f8;
+  transition: all 0.1s ease;
+  border-radius: 8px !important;
+}
+
+.custom-radio-group .ant-radio-button-wrapper:hover {
+  border-color: #ff7b00;
+  color: #ff7b00;
+  background: white;
+}
+
+.custom-radio-group .ant-radio-button-wrapper-checked {
+  border-color: #ff7b00;
+  color: #ff7b00;
+  background: white;
+}
+
+.custom-radio-group .ant-radio-button-wrapper:not(:first-child)::before {
+  display: none;
+}
